@@ -123,34 +123,81 @@ void deleteatpos(node **head,node**tail,int pos){
         free(curr);
     }
 }
-int main()
-{
-    node *head=NULL;
-    node *tail=NULL;
-    insertathead(&head,&tail,12);
-    insertathead(&head,&tail,18);
-    insertathead(&head,&tail,19);
-    insertattail(&head,&tail,10);
-    insertattail(&head,&tail,20);
-    print(&head);
-    deleteatbeg(&head,&tail);
-    deleteatbeg(&head,&tail);
-    printf("\n");
-    print(&head);
-    deleteattail(&head,&tail);
-    deleteattail(&head,&tail);
-    printf("\n");
-    print(&head);
-    insertatpos(&head,&tail,14,2);
-    insertatpos(&head,&tail,15,2);
-    insertatpos(&head,&tail,16,3);
-    printf("\n");
-    print(&head);
-    deleteatpos(&head,&tail,2);
-    printf("\n");
-    print(&head);
-    deleteatpos(&head,&tail,3);
-    printf("\n");
-    print(&head);
+int main() {
+    node *head = NULL;
+    node *tail = NULL;
+    int choice, data, position;
+    
+    printf("Doubly Linked List Operations\n");
+    printf("=============================\n");
+    
+    while(1) {
+        printf("\nMenu:\n");
+        printf("1. Insert at head\n");
+        printf("2. Insert at tail\n");
+        printf("3. Insert at position\n");
+        printf("4. Delete from head\n");
+        printf("5. Delete from tail\n");
+        printf("6. Delete from position\n");
+        printf("7. Display list\n");
+        printf("8. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        
+        switch(choice) {
+            case 1:
+                printf("Enter data to insert at head: ");
+                scanf("%d", &data);
+                insertathead(&head, &tail, data);
+                printf("Inserted %d at head\n", data);
+                break;
+                
+            case 2:
+                printf("Enter data to insert at tail: ");
+                scanf("%d", &data);
+                insertattail(&head, &tail, data);
+                printf("Inserted %d at tail\n", data);
+                break;
+                
+            case 3:
+                printf("Enter data to insert: ");
+                scanf("%d", &data);
+                printf("Enter position: ");
+                scanf("%d", &position);
+                insertatpos(&head, &tail, data, position);
+                printf("Inserted %d at position %d\n", data, position);
+                break;
+                
+            case 4:
+                deleteatbeg(&head, &tail);
+                printf("Deleted from head\n");
+                break;
+                
+            case 5:
+                deleteattail(&head, &tail);
+                printf("Deleted from tail\n");
+                break;
+                
+            case 6:
+                printf("Enter position to delete: ");
+                scanf("%d", &position);
+                deleteatpos(&head, &tail, position);
+                printf("Deleted from position %d\n", position);
+                break;
+                
+            case 7:
+                printf("Current list: ");
+                print(&head);
+                break;
+                
+            case 8:
+                printf("Exiting...\n");
+                exit(0);
+                
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+    
     return 0;
 }
