@@ -1,0 +1,92 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node {
+    int data;
+    struct node *next;
+} node;
+
+node *createnode(int data) {
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode->data = data;
+    newnode->next = NULL;
+    return newnode;
+}
+
+void enqueue(node **prear, int value) {
+    node *newnode = createnode(value);
+
+    if (*prear == NULL) {
+        newnode->next = newnode;
+        *prear = newnode;
+        return;
+    }
+
+    newnode->next = (*prear)->next;
+    (*prear)->next = newnode;
+    *prear = newnode;
+}
+
+void dequeue(node **prear) {
+    if (*prear == NULL) {
+        printf("Queue is Empty!\n");
+        return;
+    }
+
+    node *head = (*prear)->next;
+
+    if (head == *prear) {
+        free(head);
+        *prear = NULL;
+        return;
+    }
+
+    (*prear)->next = head->next;
+    free(head);
+}
+
+void peek(node **prear) {
+    if (*prear == NULL) {
+        printf("Queue is Empty!\n");
+        return;
+    }
+    printf("%d\n", (*prear)->next->data);
+}
+
+int main() {
+    node *prear = NULL;
+    int k, elem;
+
+    do {
+        printf("Enter 1 for enqueue\n");
+        printf("Enter 2 for dequeue\n");
+        printf("Enter 3 for peek\n");
+        printf("Enter 4 for exit\n");
+        scanf("%d", &k);
+
+        switch (k) {
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &elem);
+                enqueue(&prear, elem);
+                break;
+
+            case 2:
+                dequeue(&prear);
+                break;
+
+            case 3:
+                peek(&prear);
+                break;
+
+            case 4:
+                printf("Exiting...\n");
+                break;
+
+            default:
+                printf("Wrong choice!\n");
+        }
+    } while (k != 4);
+
+    return 0;
+}
