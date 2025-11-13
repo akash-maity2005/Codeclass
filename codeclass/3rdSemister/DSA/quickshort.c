@@ -1,47 +1,41 @@
 #include<stdio.h>
-
-void swap(int *a, int *b){
-    int temp = *a;
-    *a = *b;
-    *b = temp;
+void swap(int *a,int *b){
+    int temp=*a;
+    *a=*b;
+    *b=temp;
 }
-
-int partition(int a[], int beg, int end){
-    int down = beg - 1, up = end + 1;
-    int pivot = a[beg];
-
+void quicksort(int a[],int beg,int end){
+    if(beg<end){
+        int p=partition(a,beg,end);
+        quicksort(a,beg,p);
+        quicksort(a,p+1,end);
+    }
+}
+int partition(int a[],int beg,int end){
+    int down=beg-1,up=end+1;
+    int pivot=a[beg];
     while(1){
         do{
             --up;
-        } while(a[up] > pivot && up >= beg);
-
+        }while(a[up]>pivot && up>=beg);
         do{
             ++down;
-        } while(a[down] < pivot && down <= end);
-
-        if(down < up){
-            swap(&a[down], &a[up]);
+        }while(a[down]<pivot && down<=end);
+        if(down<up){
+            swap(&a[down],&a[up]);
         }
         else{
             return up;
         }
     }
 }
-
-void quicksort(int a[], int beg, int end){
-    if(beg < end){
-        int p = partition(a, beg, end);
-        quicksort(a, beg, p);
-        quicksort(a, p + 1, end);
-    }
-}
-
-void display(int a[], int n){
-    for(int i = 0; i < n; i++){
-        printf("%d ", a[i]);
+void display(int a[],int n){
+    for(int i=0;i<n;i++){
+        printf("%d ",a[i]);
     }
     printf("\n");
 }
+
 
 int main(){
     int n;
